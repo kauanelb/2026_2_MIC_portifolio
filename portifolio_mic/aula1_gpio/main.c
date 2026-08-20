@@ -2,7 +2,7 @@
  * main.c
  *
  * Created: 8/20/2026 8:58:55 AM
- *  Author: Aluno
+ *  Author: kauanelb
  */ 
 
 #include <xc.h>
