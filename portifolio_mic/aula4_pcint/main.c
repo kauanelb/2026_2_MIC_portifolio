@@ -7,8 +7,17 @@
 
 #define F_CPU 16000000
 #include <xc.h>
+#include <stdint.h>
 #include "avr/interrupt.h"
 #include "util/delay.h"
+
+#define KEY_RELEASED 0
+#define KEY_PRESSED 1
+
+uint8_t gKeyState_w = 0;
+uint8_t gKeyState_a = 0;
+uint8_t gKeyState_s = 0;
+uint8_t gKeyState_d = 0;
 
 void GPIO_config(){
 	DDRB &= ~((1<<DDB0)|(1<<DDB1)|(1<<DDB2)|(1<<DDB3)); //zera o valor dos pinos com shift a esquerda fica: b7 b6 b5 b4 0 0 0 0, ele mantem os valores dos 4 primeiros bits e zera os bits que vamos usar, PB0, PB1, PB2, PB3 como entrada
@@ -29,10 +38,27 @@ void PCINT_config(){
 }
 
 ISR(PCINT0_vect){
-	PORTC |= (1<<PORTC0); //Seta pino PC0
-	_delay_ms(100);
-	PORTC &= ~(1<<PORTC0); //Zera pino PC0
-	GPIO_incBar(); // Cada vez que o evento disparar vai incrementar a barra
+	uint8_t tCurrentKeyState_w = 0;
+	if((PINB & (1<<PINB0)) != 0){ //PORT é para escrita, PIN é para leitura. Testa pino PB0,
+		tCurrentKeyState_w = KEY_RELEASED; //PB0 = 1, chave/tecla w aberta
+	} else {
+		tCurrentKeyState_w = KEY_PRESSED; //PB0 = 0, chave/tecla w pressionada
+	}
+	
+	if(tCurrentKeyState_w == KEY_PRESSED && gKeyState_w == KEY_RELEASED){
+		//Tecla w acabou de ser pressionada
+		//gKeyState_w = KEY_PRESSED; // Agora coloca a tecla como pressionada
+		GPIO_incBar(); // Cada vez que o evento disparar vai incrementar a barra
+	} else
+	if(tCurrentKeyState_w == KEY_RELEASED && gKeyState_w == KEY_PRESSED){
+		//Tecla w acabou de ser solta
+		//gKeyState_w = KEY_RELEASED; // Agora coloca a tecla como solta/aberta
+	}
+	gKeyState_w = tCurrentKeyState_w;
+	
+	PORTC ^= (1<<PORTC0); //Seta pino PC0
+	//_delay_ms(100);
+	//PORTC &= ~(1<<PORTC0); //Zera pino PC0
 }
 
 int main(void){
