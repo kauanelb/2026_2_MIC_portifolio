@@ -14,7 +14,7 @@
 
 <item itemtype="LedBar" CircId="LedBar-49" mainComp="false" Show_id="false" Show_Val="false" Pos="712,416" rotation="-180" hflip="1" vflip="1" label="LedBar-49" idLabPos="-16,-44" labelrot="0" valLabPos="-16,-56" valLabRot="0" Size="8 _Leds" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
 
-<item itemtype="Ground" CircId="Ground-95" mainComp="false" Show_id="false" Show_Val="false" Pos="608,536" rotation="0" hflip="1" vflip="1" label="Ground-95" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Ground" CircId="Ground-95" mainComp="false" Show_id="false" Show_Val="false" Pos="608,508" rotation="0" hflip="1" vflip="1" label="Ground-95" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
 <item itemtype="Led" CircId="Led-105" mainComp="false" Show_id="false" Show_Val="false" Pos="924,416" rotation="0" hflip="1" vflip="1" label="Led-105" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
 
@@ -132,6 +132,6 @@
 
 <item itemtype="Connector" uid="Connector-288" startpinid="Node-287-2" endpinid="ResistorDip-178-resistor7-ePin14" pointList="608,440,636,440" />
 
-<item itemtype="Connector" uid="Connector-289" startpinid="Node-287-1" endpinid="Ground-95-Gnd" pointList="608,440,608,520" />
+<item itemtype="Connector" uid="Connector-289" startpinid="Node-287-1" endpinid="Ground-95-Gnd" pointList="608,440,608,492" />
 
 </circuit>

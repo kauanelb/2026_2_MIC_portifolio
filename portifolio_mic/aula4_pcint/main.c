@@ -32,12 +32,17 @@ void GPIO_incBar(){
 	PORTD |= 0b10000000; // Aciona bit mais significativo
 }
 
+void GPIO_decBar(){
+	PORTD = PORTD << 1; //Escorrega pra esquerda
+	}
+
 void PCINT_config(){
 	PCICR |= (1<<PCIE0); // Habilita grupo PCINT0 a PCINT7, pg 56 do datasheet
 	PCMSK0 |= (1<<PCINT0)|(1<<PCINT1)|(1<<PCINT2)|(1<<PCINT3); // Habilita interrupção PCINT0 a PCINT3
 }
 
 ISR(PCINT0_vect){
+	//LÓGICA DA TECLA W - INCREMENTA A BARRA DE LED
 	uint8_t tCurrentKeyState_w = 0;
 	if((PINB & (1<<PINB0)) != 0){ //PORT é para escrita, PIN é para leitura. Testa pino PB0,
 		tCurrentKeyState_w = KEY_RELEASED; //PB0 = 1, chave/tecla w aberta
@@ -55,6 +60,26 @@ ISR(PCINT0_vect){
 		//gKeyState_w = KEY_RELEASED; // Agora coloca a tecla como solta/aberta
 	}
 	gKeyState_w = tCurrentKeyState_w;
+	
+	//LÓGICA DA TECLA S - DECREMENTA A BARRA DE LED
+	uint8_t tCurrentKeyState_s = 0;
+	if((PINB & (1<<PINB2)) != 0){ //PORT é para escrita, PIN é para leitura. Testa pino PB2,
+		tCurrentKeyState_s = KEY_RELEASED; //PB2 = 1, chave/tecla s aberta
+		} else {
+		tCurrentKeyState_s = KEY_PRESSED; //PB2 = 0, chave/tecla s pressionada
+	}
+	
+	if(tCurrentKeyState_s == KEY_PRESSED && gKeyState_s == KEY_RELEASED){
+		//Tecla s acabou de ser pressionada
+		//gKeyState_s = KEY_PRESSED; // Agora coloca a tecla como pressionada
+		GPIO_decBar(); // Cada vez que o evento disparar vai incrementar a barra
+	} else
+	if(tCurrentKeyState_s == KEY_RELEASED && gKeyState_s == KEY_PRESSED){
+		//Tecla s acabou de ser solta
+		//gKeyState_s = KEY_RELEASED; // Agora coloca a tecla como solta/aberta
+	}
+	gKeyState_s = tCurrentKeyState_s;
+	
 	
 	PORTC ^= (1<<PORTC0); //Seta pino PC0
 	//_delay_ms(100);
