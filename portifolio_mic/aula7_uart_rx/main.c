@@ -9,6 +9,11 @@
 #include <xc.h>
 #include "util/delay.h"
 #include "avr/interrupt.h"
+#define RX_BUFFER_SIZE 16
+
+uint8_t gMessage[RX_BUFFER_SIZE]; //buffer global da UART, vazio
+uint16_t gRxCounter = 0; //contagem de bytes recebidos
+uint8_t gMessageReady = 0; 
 
 void UART_config_rx(uint16_t pBAUD){ 
 	UCSR0A = (0<<U2X0);							//Modo "double speed" desativado, tem relação com o ubrr0
@@ -28,14 +33,14 @@ void GPIO_config(){
 
 ISR(USART_RX_vect){//Interrupção cap 11, pg 49, interrupção 19
 	uint8_t tReceiveByte = UDR0; // 19.10.1 flag de I/O, leitura do buffer UART
-	//Tratamento da mensagem recebida
-	if(tReceiveByte == 'M'){
-		PORTC |= (1<<PORTC0); //Led verde
-		} else{
-		PORTC |= (1<<PORTC1); //Led vermelho
+	gMessage[gRxCounter] = tReceiveByte; //Armazena bytes recebidos no buffer
+	gRxCounter++;
+	if(gRxCounter == RX_BUFFER_SIZE){
+		 gRxCounter = 0; //Proteção contra estouro do buffer
 	}
-	_delay_ms(1);
-	PORTC = 0; //Apaga todos os leds
+	if(tReceiveByte == '/n'){
+		gMessageReady = 1; //Flag de mensagem completa
+	}
 }
 
 int main(void)
@@ -45,6 +50,16 @@ int main(void)
 	sei();//Habilita interrupções globalmente
     while(1)
     {
-				
+		if(gMessageReady){ //Aguarda mensagem completa
+			gMessageReady = 0;
+			//Tratamento da mensagem recebida
+			if(strcmp(gMessageReady, "Message") == 0){//string compare, compara as duas strings, se são identicas retorna 0
+				PORTC |= (1<<PORTC0); //Led verde
+				} else{
+				PORTC |= (1<<PORTC1); //Led vermelho
+			}
+			_delay_ms(10);
+			PORTC = 0; //Apaga todos os leds
+		}
     }
 }

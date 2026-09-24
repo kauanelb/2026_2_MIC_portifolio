@@ -22,8 +22,6 @@
 
 <item itemtype="Node" CircId="Node-25" mainComp="false" Pos="840,508" />
 
-<item itemtype="Node" CircId="Node-31" mainComp="false" Pos="736,264" />
-
 <item itemtype="Connector" uid="Connector-7" startpinid="Resistor-4-rPin" endpinid="Node-9-0" pointList="936,460,968,460,968,508" />
 
 <item itemtype="Connector" uid="Connector-8" startpinid="Resistor-5-rPin" endpinid="Node-9-1" pointList="936,508,968,508" />
@@ -46,10 +44,6 @@
 
 <item itemtype="Connector" uid="Connector-26" startpinid="Node-25-2" endpinid="m328 TQFP-1-PORTC0" pointList="840,508,800,508" />
 
-<item itemtype="Connector" uid="Connector-17" startpinid="m328 TQFP-15-PORTD1" endpinid="Node-31-0" pointList="584,476,584,264,736,264" />
-
-<item itemtype="Connector" uid="Connector-30" startpinid="m328 TQFP-1-PORTD0" endpinid="Node-31-1" pointList="736,476,736,264" />
-
-<item itemtype="Connector" uid="Connector-32" startpinid="Node-31-2" endpinid="Oscope-16-Pin0" pointList="736,264,928,264" />
+<item itemtype="Connector" uid="Connector-30" startpinid="m328 TQFP-1-PORTD0" endpinid="Oscope-16-Pin0" pointList="736,476,736,264,928,264" />
 
 </circuit>
