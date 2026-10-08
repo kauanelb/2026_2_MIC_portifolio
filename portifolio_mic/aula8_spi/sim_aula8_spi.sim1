@@ -1,11 +1,13 @@
 <circuit version="1.0.0-RC3" rev="1148" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
-<item itemtype="MCU" CircId="m328 TQFP-2" mainComp="false" Show_id="true" Show_Val="false" Pos="816,472" rotation="0" hflip="1" vflip="1" label="m328 TQFP-2" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../MIC/2026_2_MIC_portifolio/portifolio_mic/aula8_spi/Debug/aula8_spi.hex" Auto_Load="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" />
+<item itemtype="MCU" CircId="m328 TQFP-2" mainComp="false" Show_id="true" Show_Val="false" Pos="816,472" rotation="0" hflip="1" vflip="1" label="m328 TQFP-2" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="Debug/aula8_spi.hex" Auto_Load="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" />
 
-<item itemtype="Oscope" CircId="Oscope-3" mainComp="false" Show_id="false" Show_Val="false" Pos="1032,624" rotation="0" hflip="1" vflip="1" label="Oscope-3" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" TimDiv="250000" TimPos="412500,412500,412500,412500," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="0" Filter="0.1 V" Trigger="0" AutoSC="4" Tracks="2" HideCh="false,false,false,false," VolPos="-1.19,-1.19,-1.19,-1.19," />
+<item itemtype="Oscope" CircId="Oscope-3" mainComp="false" Show_id="false" Show_Val="false" Pos="1032,624" rotation="0" hflip="1" vflip="1" label="Oscope-3" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" TimDiv="500000" TimPos="857500,857500,857500,857500," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="0" Filter="0.1 V" Trigger="0" AutoSC="4" Tracks="4" HideCh="false,false,false,false," VolPos="-2.47,-2.47,-2.47,-2.47," />
 
 <item itemtype="Connector" uid="Connector-4" startpinid="m328 TQFP-2-PORTB3" endpinid="Oscope-3-Pin1" pointList="880,568,880,608,944,608" />
 
 <item itemtype="Connector" uid="Connector-5" startpinid="m328 TQFP-2-PORTB5" endpinid="Oscope-3-Pin0" pointList="912,544,912,576,944,576" />
+
+<item itemtype="Connector" uid="Connector-6" startpinid="m328 TQFP-2-PORTC0" endpinid="Oscope-3-Pin2" pointList="912,496,912,640,944,640" />
 
 </circuit>
