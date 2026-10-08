@@ -94,6 +94,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="sm28vlt32.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sm28vlt32.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="spi.c">
       <SubType>compile</SubType>
     </Compile>
