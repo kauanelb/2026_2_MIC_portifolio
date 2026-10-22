@@ -8,9 +8,14 @@
 #include <xc.h>
 #include "avr/interrupt.h"
 
+uint16_t gMilliSeconds = 0;
+uint8_t gClockSeconds = 0;
+uint8_t gClockMinutes = 0;
+uint8_t gClockHours = 0;
+
 //Obter uma interruoção com período de 10ms
 ISR(TIMER0_COMPA_vect){															//Interrupção de comparação A do timer 0, toda vez que der 155 ele interrompe
-	PORTB ^= (1<<PORTB0);														//Alterna PB0
+	gMilliSeconds += 10;
 }
 
 
@@ -28,7 +33,28 @@ int main(void)
 	sei();
     while(1)
     {
+		//Led blinck não bloqueante
+		if(gMilliSeconds < 100){
+			PORTB |= (1<<PORTB0);												//Seta PB0 por 100ms
+		}else{
+			PORTB &= ~(1<<PORTB0);												//zera PB0 por 900ms
+		}
 		
-        //
+		//Lógica do RTC (Real Time Clock)
+        if(gMilliSeconds >= 1000){
+	        gMilliSeconds -= 1000;
+	        gClockSeconds++;
+	        if(gClockSeconds >= 60){
+		        gClockSeconds = 0;
+		        gClockMinutes++;
+		        if(gClockMinutes >= 60){
+			        gClockMinutes = 0;
+			        gClockHours++;
+			        if(gClockHours >= 24){
+				        gClockHours = 0;
+			        }
+		        }
+	        }
+        }
     }
 }
