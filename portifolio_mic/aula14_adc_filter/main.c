@@ -8,7 +8,12 @@
 #include <xc.h>
 #include "avr/interrupt.h"
 
-uint16_t x[4]; //Medidas do ADC
+//Termos da função tranferência pro filtro (Butterworth de ordem 2, corte em 0.114 * fs = 114Hz)
+const int16_t b[3] = {1372, 2744, 1372};
+const int16_t a[2] = {-16899, 6002};	
+	
+uint16_t x[3]; //Medidas do ADC
+uint16_t y[3]; //Saída do filtro
 
 ISR(TIMER1_COMPB_vect){
 	//PORTB ^= (1<<PORTB1);			//Debug: para visualizar o tempo do TMR1
@@ -19,13 +24,14 @@ ISR(ADC_vect){//Interrupção referente a conversão concluida
 
 	uint16_t tADCData = ADC;//Acesso a ADCH e ADCL como um único registrados de 16 bits, faixa de inteiros de 0 a 1023 (ADCLAR=0)
 	
-	x[3] = x[2];	//Linha de atraso do sinal X (fila FIFO - first in first out)
+	//Linha de atraso do sinal X e Y (fila FIFO - first in first out)
 	x[2] = x[1];
 	x[1] = x[0];
 	x[0] = tADCData;
-	
-	uint16_t y = (x[0] + x[1] + x[2] + x[3]) / 4;	//Filtro média móvel de ordem 4
-	
+	y[2] = y[1];
+	y[1] = y[0];
+	y[0] = b[0] * x[0] + b[1] * x[1] + b[2] * x[2] - a[0] * y[1] - a[1] * y[2];
+		
 	if(y < 670){
 		PORTB ^= (1<<PORTB0);//Acender led abaixo de 720mV
 		} else {
