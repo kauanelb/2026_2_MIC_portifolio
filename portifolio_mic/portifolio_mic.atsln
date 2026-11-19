@@ -29,6 +29,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aula12_pwm", "aula12_pwm\au
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aula13_adc", "aula13_adc\aula13_adc.cproj", "{317629C6-F425-436E-AD4F-07E922FAE219}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aula14_adc_filter", "aula14_adc_filter\aula14_adc_filter.cproj", "{9329CA19-FBC2-41A7-BAD9-6CCB80B23512}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -87,6 +89,10 @@ Global
 		{317629C6-F425-436E-AD4F-07E922FAE219}.Debug|AVR.Build.0 = Debug|AVR
 		{317629C6-F425-436E-AD4F-07E922FAE219}.Release|AVR.ActiveCfg = Release|AVR
 		{317629C6-F425-436E-AD4F-07E922FAE219}.Release|AVR.Build.0 = Release|AVR
+		{9329CA19-FBC2-41A7-BAD9-6CCB80B23512}.Debug|AVR.ActiveCfg = Debug|AVR
+		{9329CA19-FBC2-41A7-BAD9-6CCB80B23512}.Debug|AVR.Build.0 = Debug|AVR
+		{9329CA19-FBC2-41A7-BAD9-6CCB80B23512}.Release|AVR.ActiveCfg = Release|AVR
+		{9329CA19-FBC2-41A7-BAD9-6CCB80B23512}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
