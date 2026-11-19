@@ -8,17 +8,31 @@
 #include <xc.h>
 #include "avr/interrupt.h"
 
+uint16_t x[4]; //Medidas do ADC
+
 ISR(TIMER1_COMPB_vect){
-	PORTB ^= (1<<PORTB1);			//Debug: para visualizar o tempo do TMR1
+	//PORTB ^= (1<<PORTB1);			//Debug: para visualizar o tempo do TMR1
 }
 
 ISR(ADC_vect){//Interrupção referente a conversão concluida
+	PORTB |= (1<<PORTB1);//Debug: tempo de processamento
+
 	uint16_t tADCData = ADC;//Acesso a ADCH e ADCL como um único registrados de 16 bits, faixa de inteiros de 0 a 1023 (ADCLAR=0)
-	if(tADCData < 670){
+	
+	x[3] = x[2];	//Linha de atraso do sinal X (fila FIFO - first in first out)
+	x[2] = x[1];
+	x[1] = x[0];
+	x[0] = tADCData;
+	
+	uint16_t y = (x[0] + x[1] + x[2] + x[3]) / 4;	//Filtro média móvel de ordem 4
+	
+	if(y < 670){
 		PORTB ^= (1<<PORTB0);//Acender led abaixo de 720mV
 		} else {
 		PORTB &= ~(1<<PORTB0);//Apagar led caso contrário
 	}
+	
+	PORTB &= ~(1<<PORTB1);//Debug: tempo de processamento
 }
 
 void ADC_config(){
@@ -37,7 +51,7 @@ void TMR1_config(){//Configurar timer 1 para disparo a cada 1ms, cap 15
 			|(0<<CS12)|(0<<CS11)|(1<<CS10);		//Prescaler unitário
 	OCR1A = 15999;								//Período de 1ms
 	OCR1B = 0;
-	TIMSK1 = (1<<OCIE1B);						//Debug: habilita interrupção compare match B
+	//TIMSK1 = (1<<OCIE1B);						//Debug: habilita interrupção compare match B
 }
 
 int main(void)
